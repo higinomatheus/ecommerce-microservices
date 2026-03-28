@@ -12,15 +12,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDTO {
-
-    @NotNull
     private Long id;
+    @NotNull
     private String nome;
 
     public static CategoryDTO convert(Category category){
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setId(category.getId());
-        categoryDTO.setNome(categoryDTO.getNome());
+        categoryDTO.setNome(category.getNome());
         return categoryDTO;
     }
 }
