@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDTO {
+    private Long id;
     @NotBlank
     private String productIdentifier;
     @NotBlank
@@ -26,9 +27,10 @@ public class ProductDTO {
 
     public static ProductDTO convert(Product product){
         ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
         productDTO.setNome(product.getNome());
         productDTO.setPreco(product.getPreco());
-        productDTO.setProductIdentifier(productDTO.getProductIdentifier());
+        productDTO.setProductIdentifier(product.getProductIdentifier());
         productDTO.setDescricao(product.getDescricao());
         if(product.getCategory() != null){
             productDTO.setCategory(
