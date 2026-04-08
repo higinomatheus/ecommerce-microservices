@@ -60,7 +60,6 @@ public class ReportRepositoryImpl implements ReportRepository {
         Object[] result = (Object[]) query.getSingleResult();
         ShopReportDTO shopReportDTO = new ShopReportDTO();
 
-        // Uma coisa importante é que a consulta retorna sempre BigInteger para consultas com a função count, e Double para consultas com as funções sum e avg.
         shopReportDTO.setCount(((Number) result[0]).intValue());
         shopReportDTO.setTotal(result[1] != null ? ((Number) result[1]).doubleValue() : 0.0);
         shopReportDTO.setMean(result[2] != null ? ((Number) result[2]).doubleValue() : 0.0);
