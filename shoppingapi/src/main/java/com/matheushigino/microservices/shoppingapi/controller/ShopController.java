@@ -1,6 +1,7 @@
 package com.matheushigino.microservices.shoppingapi.controller;
 
 import com.matheushigino.microservices.shoppingapi.dto.ShopDTO;
+import com.matheushigino.microservices.shoppingapi.dto.ShopReportDTO;
 import com.matheushigino.microservices.shoppingapi.service.ShopService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -54,5 +55,16 @@ public class ShopController {
             Float valorMinimo
     ){
         return shopService.getShopsByFilter(dataInicio, dataFim, valorMinimo);
+    }
+
+    @GetMapping("/shopping/report")
+    public ShopReportDTO getReportByDate(
+            @RequestParam(name = "dataInicio", required = true)
+            @DateTimeFormat(pattern = "dd/MM/yyyy")
+            LocalDate dataInicio,
+            @RequestParam(name = "dataFim", required = true)
+            @DateTimeFormat(pattern = "dd/MM/yyyy")
+            LocalDate dataFim){
+        return shopService.getReportByDate(dataInicio, dataFim);
     }
 }

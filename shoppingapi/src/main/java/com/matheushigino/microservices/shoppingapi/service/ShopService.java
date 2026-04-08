@@ -2,10 +2,13 @@ package com.matheushigino.microservices.shoppingapi.service;
 
 import com.matheushigino.microservices.shoppingapi.dto.ItemDTO;
 import com.matheushigino.microservices.shoppingapi.dto.ShopDTO;
+import com.matheushigino.microservices.shoppingapi.dto.ShopReportDTO;
 import com.matheushigino.microservices.shoppingapi.model.Shop;
 import com.matheushigino.microservices.shoppingapi.repository.ReportRepository;
 import com.matheushigino.microservices.shoppingapi.repository.ShopRepository;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -71,5 +74,9 @@ public class ShopService {
                 .stream()
                 .map(ShopDTO::convert)
                 .collect(Collectors.toList());
+    }
+
+    public ShopReportDTO getReportByDate(LocalDate dataInicio, LocalDate dataFim){
+        return reportRepository.getReportByDate(dataInicio, dataFim);
     }
 }
