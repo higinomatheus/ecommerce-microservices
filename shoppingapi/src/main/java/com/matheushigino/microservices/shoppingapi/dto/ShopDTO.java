@@ -20,9 +20,7 @@ import java.util.List;
 public class ShopDTO {
     @NotBlank
     private String userIdentifier;
-    @NotNull
     private Float total;
-    @NotNull
     private LocalDateTime date;
     @NotNull
     private List<ItemDTO> items;
@@ -32,6 +30,14 @@ public class ShopDTO {
         shopDTO.setUserIdentifier(shop.getUserIdentifier());
         shopDTO.setTotal(shop.getTotal());
         shopDTO.setDate(shop.getDate());
+
+        shopDTO.setItems(
+                shop.getItems() == null ? List.of() :
+                        shop.getItems().stream()
+                                .map(ItemDTO::convert)
+                                .toList()
+        );
+
         return shopDTO;
     }
 }

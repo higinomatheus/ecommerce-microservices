@@ -27,8 +27,7 @@ public class Shop {
     private LocalDateTime date;
     private float total;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "item", joinColumns = @JoinColumn(name = "shop_id"))
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<Item> items;
 
     public static Shop convert(ShopDTO shopDTO){
@@ -36,11 +35,16 @@ public class Shop {
         shop.setUserIdentifier(shopDTO.getUserIdentifier());
         shop.setTotal(shopDTO.getTotal());
         shop.setDate(shopDTO.getDate());
-        shop.setItems(shopDTO
-                .getItems()
+
+        List<Item> items = shopDTO.getItems()
                 .stream()
                 .map(Item::convert)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+
+        items.forEach(item -> item.setShop(shop));
+
+        shop.setItems(items);
+
         return shop;
     }
 }
