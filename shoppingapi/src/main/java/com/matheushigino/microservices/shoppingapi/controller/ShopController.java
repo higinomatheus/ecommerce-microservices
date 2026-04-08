@@ -4,9 +4,11 @@ import com.matheushigino.microservices.shoppingapi.dto.ShopDTO;
 import com.matheushigino.microservices.shoppingapi.service.ShopService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -38,5 +40,19 @@ public class ShopController {
     @ResponseStatus(HttpStatus.CREATED)
     public ShopDTO newShop(@Valid @RequestBody ShopDTO shopDTO){
         return shopService.save(shopDTO);
+    }
+
+    @GetMapping("/shopping/search")
+    public List<ShopDTO> getShopsByFilter(
+            @RequestParam(name = "dataInicio", required = true)
+            @DateTimeFormat(pattern = "dd/MM/yyyy")
+            LocalDate dataInicio,
+            @RequestParam(name = "dataFim", required = false)
+            @DateTimeFormat(pattern = "dd/MM/yyyy")
+            LocalDate dataFim,
+            @RequestParam(name="valorMinimo", required = false)
+            Float valorMinimo
+    ){
+        return shopService.getShopsByFilter(dataInicio, dataFim, valorMinimo);
     }
 }
